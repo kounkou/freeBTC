@@ -1,9 +1,33 @@
 #!/bin/bash
 
+
+#--------------------------------------------
+# helper function to select element
+# globals   : na
+# arguments : x_axis,
+#             y_axis and c_type
+# return    : na
+#--------------------------------------------
+function selectElement()
+{
+   local readonly x_axis=$1
+   local readonly y_axis=$2
+   local readonly c_type=$3 
+   
+   moveMouse $x_axis $y_axis
+   performLeftClick $c_type
+   sleep 2
+}
+
+#--------------------------------------------
 # this function will generate a random
 # sequence using reverse psychology probability
 # for guess numbers
-generateRandomReverseSequence()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function generateRandomReverseSequence()
 {
    for it in `seq 0 7`
    do
@@ -20,9 +44,15 @@ generateRandomReverseSequence()
    done
 }
 
+
+#--------------------------------------------
 # this function will generate perfectly random numbers
 # generate 20 random numbers and choose them
-generateRandomNumbers()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function generateRandomNumbers()
 {
    local flag=0
 
@@ -66,9 +96,14 @@ generateRandomNumbers()
    # displayUpdatedStatus "Done generating random numbers"
 }
 
+#--------------------------------------------
 # This will adjust the value to match the Kolmogorov
 # Smirnov Test, as values are defined on [0; 1]
-adjustArrayForKSTest()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function adjustArrayForKSTest()
 {
    # compute the different adjusted values 
    # using -g to set rnd_tmp as global 
@@ -83,8 +118,13 @@ adjustArrayForKSTest()
    done
 }
 
+#--------------------------------------------
 # this function gives the max of a set of numbers
-max()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function max()
 {
    declare -a tmpArr=("${!1}")
 
@@ -107,9 +147,14 @@ max()
    echo $max
 }
 
+#--------------------------------------------
 # this function computes D+ for the 
 # Kolmogorov Smirnov Test
-computeDPlus()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function computeDPlus()
 {
    # creating a local associative array
    declare -a dplusArray
@@ -128,9 +173,14 @@ computeDPlus()
    # displayUpdatedStatus "$D_PLUS"
 }
 
+#--------------------------------------------
 # this function computes D+ for the 
 # Kolmogorov Smirnov Test
-computeDMinus()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function computeDMinus()
 {
    # creating a local array
    declare -a dminusArray
@@ -149,10 +199,15 @@ computeDMinus()
    # displayUpdatedStatus "$D_MINUS"
 }
 
+#--------------------------------------------
 # now compute the Kolmogorov Smirnov
 # Test to answer if yes or no the
 # new sequence is good
-performKSTest()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function performKSTest()
 {
    local max
    local sts
@@ -180,9 +235,14 @@ performKSTest()
    echo 1 # echo $sts
 }
 
+#--------------------------------------------
 # this function will select text from one location
 # to another location
-selectText()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function selectText()
 {
    if [ -f clipboard.txt ]
    then
@@ -196,8 +256,13 @@ selectText()
    helperFunction 406 
 }
 
+#--------------------------------------------
 # helper function to select each lines
-helperFunction()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function helperFunction()
 {
    moveMouse 984 $1
    performLeftClick 1
@@ -224,12 +289,17 @@ helperFunction()
    sed -i -e '$a\' clipboard.txt
 }
 
+#--------------------------------------------
 # this function will fill the loto grid
 # this is where the 1 is
 # 1 : 668          271 
 # 2 : 668+1*55     271
 # n : 668+(n-1)*55 271
-fillLotoGrid()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function fillLotoGrid()
 {
    local x_axis_origin=668
    local y_axis_origin=271
@@ -278,7 +348,12 @@ fillLotoGrid()
    done
 }
 
-chooseBonusSymbol()
+#--------------------------------------------
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function chooseBonusSymbol()
 {
    # once done we take the bonus symbol
    symb=($(shuf -i 1-3 -n 1 | shuf -i 1-3 -n 1))
@@ -301,8 +376,13 @@ chooseBonusSymbol()
    done
 }
 
+#--------------------------------------------
 # this function will display the message
-displayUpdatedStatus()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function displayUpdatedStatus()
 {
    # echo -e "\033[2K $1"\\r
 
@@ -310,41 +390,70 @@ displayUpdatedStatus()
    printf "%*s\r" $(tput cols) "$1"
 }
 
+#--------------------------------------------
 # this function will get the mouse position
-getMousePosition()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function getMousePosition()
 {
    eval $(xdotool getmouselocation --shell)
 }
 
-
+#--------------------------------------------
 # this function will display the mouse position
-displayMousePosition()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function displayMousePosition()
 {
    echo -e "($1 ; $2)"
 } 
 
+#--------------------------------------------
 # this function will move mouse and click
-moveMouse()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function moveMouse()
 {
    xdotool mousemove --sync $1 $2
 }
 
+#--------------------------------------------
 # this function will perform a left click
-performLeftClick()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function performLeftClick()
 {
    sleep 2
    xdotool click 1 # 1 is for left click
 }
 
+#--------------------------------------------
 # this function will perform a left click
-performRightClick()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function performRightClick()
 {
    sleep 1
    xdotool click 3 # 1 is for left click
 }
 
+#--------------------------------------------
 # this function will move the mouse wheel up
-moveMouseWheelUp()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function moveMouseWheelUp()
 {
    local counter=$1
 
@@ -354,8 +463,13 @@ moveMouseWheelUp()
    done
 }
 
+#--------------------------------------------
 # this function will move the mouse wheel up
-moveMouseWheelDown()
+# globals   : na
+# arguments : na
+# return    : na
+#--------------------------------------------
+function moveMouseWheelDown()
 {
    local counter=$1
 

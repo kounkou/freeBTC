@@ -148,24 +148,6 @@ function getAmount()
 }
 
 #--------------------------------------------
-# helper function to select element
-# globals   : na
-# arguments : x_axis,
-#             y_axis and c_type
-# return    : na
-#--------------------------------------------
-function selectElement()
-{
-   local readonly x_axis=$1
-   local readonly y_axis=$2
-   local readonly c_type=$3 
-   
-   moveMouse $x_axis $y_axis
-   performLeftClick $c_type
-   sleep 2
-}
-
-#--------------------------------------------
 # helper function to change element
 # globals   : na
 # arguments : x_axis, 
